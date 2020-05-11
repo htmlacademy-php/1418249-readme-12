@@ -231,9 +231,10 @@ $user_name = 'Kukka'; // укажите здесь ваше имя
                                 "card_avatar"=>"userpic-larisa-small.jpg"
                             ),
                             array (
-                                 "card_header"=> "Игра престолов",
+                                 "card_header"=> "Арсений Тарковский",
                                  "card_type"=> "post-text",
-                                 "card_content"=> "Не могу дождаться начала финального сезона своего любимого сериала!",
+                                 "card_content"=> "Ночью медленно время идет, Завершается год високосный. Чуют жилами старые сосны Вешних смол коченеющий лед.  Хватит мне повседневных забот, А другого мне счастья не надо. Я-то знаю: и там, за оградой, Чей-нибудь завершается год.  Знаю: новая роща встает Там, где сосны кончаются наши. Тяжелы черно-белые чаши, Чуют жилами срок и черед.",
+
                                  "card_username"=>"Владик",
                                  "card_avatar"=>"userpic.jpg"
                             ),
@@ -286,7 +287,17 @@ $user_name = 'Kukka'; // укажите здесь ваше имя
                         </blockquote>
                     <?php endif ?>
                     <?php if ($post["card_type"] == 'post-text'):?>
-                        <p><?php print ($post["card_content"]) ?></p>
+                        <?php $post_text = Text_lop($post["card_content"],350);?>
+                        <?php if (strlen($post["card_content"])> (strlen($post_text))-4):?>
+                            <blockquote>
+                             <p><?php print ($post_text) ?></p>
+                            </blockquote>
+                             <a class="post-text__more-link" href="#">Читать далее</a>
+                        <?php else:?>
+                            <blockquote>
+                                <p><?php print $post["card_content"] ?></p>
+                            </blockquote>
+                        <?php endif ?>
                     <?php endif ?>
                     <?php if ($post["card_type"] == 'post-photo'):?>
                         <div class="post-photo__image-wrapper">
