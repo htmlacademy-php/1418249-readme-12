@@ -203,69 +203,104 @@ $user_name = 'Kukka'; // укажите здесь ваше имя
             </div>
         </div>
         <div class="popular__posts">
-            <div class="visually-hidden" id="donor">
-                <!--содержимое для поста-цитаты-->
-                <blockquote>
-                    <p>
-                        <!--здесь текст-->
-                    </p>
-                    <cite>Неизвестный Автор</cite>
-                </blockquote>
+            <?php $posts = array(
+                            array (
+                                "card_header" => "Цитата",
+                                "card_type" => "post-quote",
+                                "card_content" => "Мы в жизни любим только раз, а после ищем лишь похожих",
+                                "card_username"=>"Лариса",
+                                "card_avatar"=>"userpic-larisa-small.jpg"
+                            ),
+                            array (
+                                 "card_header"=> "Игра престолов",
+                                 "card_type"=> "post-text",
+                                 "card_content"=> "Не могу дождаться начала финального сезона своего любимого сериала!",
+                                 "card_username"=>"Владик",
+                                 "card_avatar"=>"userpic.jpg"
+                            ),
+                             array (
+                                "card_header"=> "Наконец, обработал фотки!",
+                                "card_type"=> "post-photo",
+                                "card_content"=> "rock-medium.jpg",
+                                "card_username"=>"Виктор",
+                                "card_avatar"=>"userpic-mark.jpg"
+                            ),
+                              array (
+                                "card_header"=> "Моя мечта",
+                                "card_type"=> "post-photo",
+                                "card_content"=> "coast-medium.jpg",
+                                "card_username"=>"Лариса",
+                                "card_avatar"=>"userpic-larisa-small.jpg"
+                            ),
+                              array (
+                                "card_header"=> "Лучшие курсы",
+                                "card_type"=> "post-link",
+                                "card_content"=> "www.htmlacademy.ru",
+                                "card_username"=>"Владик",
+                                "card_avatar"=>"userpic.jpg"
+                              )
+            ) ?>
 
-                <!--содержимое для поста-ссылки-->
-                <div class="post-link__wrapper">
-                    <a class="post-link__external" href="http://" title="Перейти по ссылке">
-                        <div class="post-link__info-wrapper">
-                            <div class="post-link__icon-wrapper">
-                                <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
-                            </div>
-                            <div class="post-link__info">
-                                <h3><!--здесь заголовок--></h3>
-                            </div>
-                        </div>
-                        <span><!--здесь ссылка--></span>
-                    </a>
-                </div>
-
-                <!--содержимое для поста-фото-->
-                <div class="post-photo__image-wrapper">
-                    <img src="img/" alt="Фото от пользователя" width="360" height="240">
-                </div>
-
-                <!--содержимое для поста-видео-->
-                <div class="post-video__block">
-                    <div class="post-video__preview">
-                        <?=embed_youtube_cover(/* вставьте ссылку на видео */); ?>
-                        <img src="img/coast-medium.jpg" alt="Превью к видео" width="360" height="188">
-                    </div>
-                    <a href="post-details.html" class="post-video__play-big button">
-                        <svg class="post-video__play-big-icon" width="14" height="14">
-                            <use xlink:href="#icon-video-play-big"></use>
-                        </svg>
-                        <span class="visually-hidden">Запустить проигрыватель</span>
-                    </a>
-                </div>
-
-                <!--содержимое для поста-текста-->
-                <p><!--здесь текст--></p>
-            </div>
-
+        <?php  foreach ($posts as $post):
+        ?>
             <article class="popular__post post">
                 <header class="post__header">
-                    <h2><!--здесь заголовок--></h2>
+                    <h2><?php
+
+                            if (isset($post["card_header"]))
+                            {
+
+                                print ($post["card_header"]);
+                            }
+                        ?> </h2>
+
                 </header>
                 <div class="post__main">
-                    <!--здесь содержимое карточки-->
+
+                    <?php if ($post["card_type"] == 'post-quote'):?>
+                        <blockquote>
+                            <p>
+
+                                <?php if (isset($post["card_content"])) { print ($post["card_content"]); } ?>
+                            </p>
+                            <cite>Неизвестный Автор</cite>
+                        </blockquote>
+                    <?php endif ?>
+                    <?php if ($post["card_type"] == 'post-text'):?>
+                        <p><?php print ($post["card_content"]) ?></p>
+                    <?php endif ?>
+                    <?php if ($post["card_type"] == 'post-photo'):?>
+                        <div class="post-photo__image-wrapper">
+                            <img src="img/<?=$post["card_content"]?>" alt="Фото от пользователя" width="360" height="240">
+                        </div>
+                    <?php endif ?>
+                    <?php if ($post["card_type"] == 'post-link'):?>
+                        <div class="post-link__wrapper">
+                            <a class="post-link__external" href="http://<?=$post["card_content"];?>" title="Перейти по ссылке">
+                                <div class="post-link__info-wrapper">
+                                    <div class="post-link__icon-wrapper">
+                                        <img src="https://www.google.com/s2/favicons?domain=vitadental.ru" alt="Иконка">
+                                    </div>
+                                    <div class="post-link__info">
+                                        <h3><?php print($post["card_header"])?></h3>
+                                    </div>
+                                </div>
+                                <span>"http://<?=$post["card_content"]?></span>
+                            </a>
+                        </div>
+
+                    <?php endif; ?>
+
                 </div>
                 <footer class="post__footer">
                     <div class="post__author">
                         <a class="post__author-link" href="#" title="Автор">
                             <div class="post__avatar-wrapper">
                                 <!--укажите путь к файлу аватара-->
-                                <img class="post__author-avatar" src="img/" alt="Аватар пользователя">
+                                <img class="post__author-avatar" src="img/<?=$post["card_avatar"];?>" alt="Аватар пользователя">
                             </div>
                             <div class="post__info">
-                                <b class="post__author-name"><!--здесь имя пользоателя--></b>
+                                <b class="post__author-name"><?php print($post["card_username"]);?></b>
                                 <time class="post__time" datetime="">дата</time>
                             </div>
                         </a>
@@ -293,6 +328,7 @@ $user_name = 'Kukka'; // укажите здесь ваше имя
                     </div>
                 </footer>
             </article>
+         <?php endforeach; ?>
         </div>
     </div>
 </section>
