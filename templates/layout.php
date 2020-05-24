@@ -116,7 +116,7 @@ $user_name = 'Kukka'; // укажите здесь ваше имя
         </div>
     </div>
 </header>
-<?php print($page_main); ?>
+<?php print($content); ?>
 
 <footer class="footer">
     <div class="footer__wrapper">
