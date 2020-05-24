@@ -78,6 +78,7 @@ $user_name = 'Kukka'; // укажите здесь ваше имя
                             <span class="visually-hidden">Личные сообщения</span>
                         </a>
                     </li>
+                    
                 </ul>
                 <!-- здесь должен быть PHP код, который показывает следующий тег по условию -->
                 <?php if ($is_auth ==1): ?>
@@ -366,7 +367,7 @@ $user_name = 'Kukka'; // укажите здесь ваше имя
                                 {
                                     $date_string = 'меньше минуты назад';
                                 }
-                             
+
                                 ?>
 
                                 <time class="post__time" datetime=""><?php print_r ($date_string) ?></time>
