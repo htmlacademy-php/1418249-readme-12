@@ -1,4 +1,5 @@
 <?php
+require_once ('helpers.php');
 $is_auth = rand(0, 1);
 
 $user_name = 'Kukka'; // укажите здесь ваше имя
@@ -331,7 +332,44 @@ $user_name = 'Kukka'; // укажите здесь ваше имя
                             </div>
                             <div class="post__info">
                                 <b class="post__author-name"><?php print($post["card_username"]);?></b>
-                                <time class="post__time" datetime="">дата</time>
+                                <?php
+                               $post_date = date_create (generate_random_date($post));
+
+                                $cur_date = date_create ('Now');
+                                $diff = date_diff($post_date, $cur_date);
+                                If ($diff->format('%y')>0) {
+                                    $date_string = 'Больше года назад';
+                                }
+                                elseif ($diff->format('%m')>0)
+                                {
+                                    $date_string = $diff->format('%m').' '.get_noun_plural_form($diff->format('%m'),'месяц','месяца','месяцев').'  назад';
+                                }
+                                elseif ($diff->format('%d')>0)
+                                {
+                                    if ($diff->format('%d')<7)
+                                    {
+                                        $date_string = $diff->format('%d') . ' ' . get_noun_plural_form($diff->format('%d'), 'день', 'дня', 'дней') . ' назад';
+                                    }
+                                    else { $date_string = floor($diff->format('%d')/7) . ' ' . get_noun_plural_form(floor($diff->format('%d')/7), 'неделю', 'недели', 'недель') . ' назад';
+
+                                    }
+                                }
+                                elseif ($diff->format('%h')>0)
+                                {
+                                    $date_string = $diff->format('%h').' '.get_noun_plural_form($diff->format('%h'),'час','часа','часов').' назад';
+                                }
+                                elseif ($diff->format('%i')>0)
+                                {
+                                    $date_string = $diff->format('%i').' '.get_noun_plural_form($diff->format('%i'),'минуту','минуты','минут').'  назад';
+                                }
+                                else
+                                {
+                                    $date_string = 'меньше минуты назад';
+                                }
+                             
+                                ?>
+
+                                <time class="post__time" datetime=""><?php print_r ($date_string) ?></time>
                             </div>
                         </a>
                     </div>
